@@ -4,9 +4,15 @@ import os
 import torch
 from PIL import Image, ImageFile
 from torchvision import transforms as T
-from torch.utils.data import TensorDataset
 from torchvision.datasets import MNIST, ImageFolder
 from torchvision.transforms.functional import rotate
+from torch.utils.data import TensorDataset, Dataset
+from torchvision import transforms
+from pathlib import Path
+import csv
+import numpy as np
+
+
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -23,6 +29,7 @@ DATASETS = [
     "OfficeHome",
     "TerraIncognita",
     "DomainNet",
+    "CelebA_Blond"
 ]
 
 
@@ -248,3 +255,82 @@ class TerraIncognita(MultipleEnvironmentImageFolder):
     def __init__(self, root):
         self.dir = os.path.join(root, "terra_incognita/")
         super().__init__(self.dir)
+
+
+class CelebA_Environment(Dataset):
+    def __init__(self, target_attribute_id, split_csv, img_dir, transform=None):
+        self.img_dir = img_dir
+        self.transform = transform
+        file_names = []
+        attributes = []
+        with open(split_csv) as f:
+            reader = csv.reader(f)
+            next(reader)  # discard header
+            for row in reader:
+                file_names.append(row[0])
+                attributes.append(np.array(row[1:], dtype=int))
+        attributes = np.stack(attributes, axis=0)
+        self.samples = list(zip(file_names, list(
+            attributes[:, target_attribute_id])))
+        # Find unique values in the specified column and convert to a list
+        unique_values = np.unique(attributes[:, target_attribute_id]).tolist()
+        # Map the unique values to the corresponding labels
+        self.classes = ['not blond' if value == 0 else 'blond' for value in unique_values]
+
+
+    def __len__(self):
+        return len(self.samples)
+
+    def __getitem__(self, index):
+        file_name, label = self.samples[index]
+        image = Image.open(Path(self.img_dir, file_name))
+        if self.transform:
+            image = self.transform(image)
+        label = torch.tensor(label)
+        return image, label
+
+def get_normalize():
+    return transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+
+class CelebA_Blond(MultipleDomainDataset):
+    CHECKPOINT_FREQ = 200
+    ENVIRONMENTS = ['tr_env1', 'tr_env2', 'te_env']
+    TARGET_ATTRIBUTE_ID = 9
+
+    def __init__(self, root, test_envs, hparams):
+        super().__init__()
+        if 'data_augmentation_scheme' in hparams:
+            raise NotImplementedError(
+                'CelebA_Blond has its own data augmentation scheme')
+
+        transform = transforms.Compose([
+            # crop the face at the center, no stretching
+            transforms.CenterCrop(178),
+            transforms.Resize((224, 224)),
+            transforms.ToTensor(),
+            get_normalize(),
+        ])
+
+        augment_transform = transforms.Compose([
+            transforms.RandomResizedCrop((224, 224), scale=(0.7, 1.0),
+                                         ratio=(1.0, 1.3333333333333333)),
+            transforms.ColorJitter(0.3, 0.3, 0.3, 0.0),  # do not alter hue
+            transforms.RandomHorizontalFlip(),
+            transforms.ToTensor(),
+            get_normalize(),
+        ])
+
+        img_dir = Path(root, 'celeba', 'img_align_celeba')
+        self.datasets = []
+        for i, env_name in enumerate(self.ENVIRONMENTS):
+            if hparams['data_augmentation'] and (i not in test_envs):
+                env_transform = augment_transform
+            else:
+                env_transform = transform
+            split_csv = Path(root, 'celeba', 'blond_split', f'{env_name}.csv')
+            dataset = CelebA_Environment(self.TARGET_ATTRIBUTE_ID, split_csv, img_dir,
+                                         env_transform)
+            self.datasets.append(dataset)
+
+        self.input_shape = (3, 224, 224,)
+        self.num_classes = 2  # blond or not

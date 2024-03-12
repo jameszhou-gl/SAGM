@@ -74,7 +74,7 @@ python train_all.py PACS0 --dataset PACS --data_dir /my/datasets/path --determin
 ```
 
 ```
-python train_all.py PACS0 --dataset PACS --data_dir /home/guanglinzhou/scratch/domainbed/dataset --deterministic --trial_seed 0 --algorithm SAGM_DG --checkpoint_freq 100 --alpha 0.001 --lr 3e-5 --weight_decay 1e-4 --resnet_dropout 0.5 --swad False --steps 3000
+python train_all.py PACS0 --dataset PACS --data_dir /home/guanglinzhou/scratch/domainbed/dataset --deterministic --trial_seed 0 --algorithm SAGM_DG --alpha 0.001 --lr 3e-5 --weight_decay 1e-4 --resnet_dropout 0.5 --swad False --steps 3000
 ```
 
 - VLCS
@@ -83,10 +83,18 @@ python train_all.py PACS0 --dataset PACS --data_dir /home/guanglinzhou/scratch/d
 python train_all.py VLCS0 --dataset VLCS --data_dir /my/datasets/path --deterministic --trial_seed 0 --algorithm SAGM_DG --checkpoint_freq 100 --alpha 0.001 --lr 1e-5 --weight_decay 1e-4 --resnet_dropout 0.5 --swad False
 ```
 
+```
+python train_all.py VLCS0 --dataset VLCS --data_dir /home/guanglinzhou/scratch/domainbed/dataset --deterministic --trial_seed 0 --algorithm SAGM_DG --alpha 0.001 --lr 3e-5 --weight_decay 1e-4 --resnet_dropout 0.5 --swad False --steps 3000
+```
+
 - OfficeHome
 
 ```
 python train_all.py OH0 --dataset OfficeHome --data_dir /my/datasets/path --deterministic --trial_seed 0 --algorithm SAGM_DG --checkpoint_freq 100 --alpha 0.0005 --lr 1e-5 --weight_decay 1e-4 --resnet_dropout 0.5 --swad False
+```
+
+```
+CUDA_VISIBLE_DEVICES=1 python train_all.py OH0 --dataset OfficeHome --data_dir /home/guanglinzhou/scratch/domainbed/dataset --deterministic --trial_seed 0 --algorithm SAGM_DG --alpha 0.0005 --lr 1e-5 --weight_decay 1e-4 --resnet_dropout 0.5 --swad False --steps 3000
 ```
 
 - TerraIncognita
@@ -95,12 +103,19 @@ python train_all.py OH0 --dataset OfficeHome --data_dir /my/datasets/path --dete
 python train_all.py TR0 --dataset TerraIncognita --data_dir /my/datasets/path --deterministic --trial_seed 0 --algorithm SAGM_DG --checkpoint_freq 100 --alpha 0.001 --lr 1e-5 --weight_decay 1e-4 --resnet_dropout 0.5 --swad False
 ```
 
+```
+python train_all.py TR0 --dataset TerraIncognita --data_dir /home/guanglinzhou/scratch/domainbed/dataset --deterministic --trial_seed 0 --algorithm SAGM_DG --alpha 0.001 --lr 1e-5 --weight_decay 1e-4 --resnet_dropout 0.5 --swad False --steps 3000
+```
+
 - DomainNet
 
 ```
 python train_all.py DN0 --dataset DomainNet --data_dir /my/datasets/path --deterministic --trial_seed 0 --algorithm SAGM_DG --checkpoint_freq 100 --alpha 0.0005 --lr 3e-5 --weight_decay 1e-6 --resnet_dropout 0.5 --swad False
 ```
-
+- CelebA_Blond
+```
+CUDA_VISIBLE_DEVICES=1 python train_all.py CB0 --dataset CelebA_Blond --data_dir /home/guanglinzhou/scratch/domainbed/dataset --deterministic --trial_seed 0 --algorithm SAGM_DG --alpha 0.001 --lr 1e-5 --weight_decay 1e-4 --resnet_dropout 0.5 --swad False --steps 3000
+```
 
 ## Main Results
 
