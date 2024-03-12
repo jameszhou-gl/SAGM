@@ -73,6 +73,10 @@ Note that the difference in a detailed environment or uncontrolled randomness ma
 python train_all.py PACS0 --dataset PACS --data_dir /my/datasets/path --deterministic --trial_seed 0 --algorithm SAGM_DG --checkpoint_freq 100 --alpha 0.001 --lr 3e-5 --weight_decay 1e-4 --resnet_dropout 0.5 --swad False
 ```
 
+```
+python train_all.py PACS0 --dataset PACS --data_dir /home/guanglinzhou/scratch/domainbed/dataset --deterministic --trial_seed 0 --algorithm SAGM_DG --checkpoint_freq 100 --alpha 0.001 --lr 3e-5 --weight_decay 1e-4 --resnet_dropout 0.5 --swad False --steps 3000
+```
+
 - VLCS
 
 ```

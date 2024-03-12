@@ -1,5 +1,5 @@
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved
-
+import timm
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -184,7 +184,32 @@ class ContextNet(nn.Module):
     def forward(self, x):
         return self.context_net(x)
 
+class ViT(nn.Module):
+    """
+    ViT
+    """
 
+    def __init__(self, input_shape, hparams):
+        super(ViT, self).__init__()
+        self.hparams = hparams
+        self.input_shape = input_shape
+        self.n_outputs = 768
+
+        self.dropout = nn.Dropout(hparams["resnet_dropout"])
+
+        self.network = timm.create_model(
+            "vit_base_patch16_224", pretrained=True, drop_path_rate=0.1)
+        del self.network.head
+        self.network.head = Identity()
+
+    def forward(self, x):
+        """Encode x into a feature vector of size n_outputs."""
+        # print(x.shape)
+        # print(self.network.num_classes)
+        # print(self.network.default_cfg['hidden_dim'])
+        # print(self.network.embed_dim)
+        return self.dropout(self.network(x))
+    
 def Featurizer(input_shape, hparams):
     """Auto-select an appropriate featurizer for the given input shape."""
     if len(input_shape) == 1:
@@ -194,6 +219,7 @@ def Featurizer(input_shape, hparams):
     elif input_shape[1:3] == (32, 32):
         return wide_resnet.Wide_ResNet(input_shape, 16, 2, 0.0)
     elif input_shape[1:3] == (224, 224):
-        return ResNet(input_shape, hparams)
+        # return ResNet(input_shape, hparams)
+        return ViT(input_shape, hparams)
     else:
         raise NotImplementedError(f"Input shape {input_shape} is not supported")
