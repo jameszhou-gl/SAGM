@@ -1,0 +1,67 @@
+[37m[36mINFO[0m[0m 03/12 13:21:08 | Command :: train_all.py PACS0 --dataset PACS --data_dir /home/guanglinzhou/scratch/domainbed/dataset --deterministic --trial_seed 0 --algorithm SAGM_DG --checkpoint_freq 100 --alpha 0.001 --lr 3e-5 --weight_decay 1e-4 --resnet_dropout 0.5 --swad False --steps 3000
+Environment:
+	Python: 3.11.5
+	PyTorch: 2.0.1+cu117
+	Torchvision: 0.15.2+cu117
+	CUDA: 11.7
+	CUDNN: 8500
+	NumPy: 1.26.2
+	PIL: 10.1.0
+Args:
+	algorithm: SAGM_DG
+	checkpoint_freq: 100
+	configs: []
+	data_dir: /home/guanglinzhou/scratch/domainbed/dataset
+	dataset: PACS
+	debug: False
+	deterministic: True
+	evalmode: fast
+	holdout_fraction: 0.2
+	model_save: None
+	name: PACS0
+	out_dir: train_output/PACS/240312_13-21-08_PACS0
+	out_root: train_output/PACS
+	prebuild_loader: False
+	seed: 0
+	show: False
+	steps: 3000
+	tb_freq: 10
+	test_envs: None
+	trial_seed: 0
+	unique_name: 240312_13-21-08_PACS0
+	work_dir: .
+HParams:
+	data_augmentation: True
+	val_augment: False
+	resnet18: False
+	[36mresnet_dropout: 0.5
+	[0mclass_balanced: False
+	optimizer: adam
+	freeze_bn: True
+	pretrained: True
+	[36mlr: 3e-05
+	[0mbatch_size: 32
+	[36mweight_decay: 0.0001
+	[0mrho: 0.05
+	[36malpha: 0.001
+	[0m[36mswad: False
+	[0mswad_kwargs: 
+	  n_converge: 3
+	  n_tolerance: 6
+	  tolerance_ratio: 0.3
+	test_batchsize: 128
+	indomain_test: False
+Dataset:
+	[PACS] #envs=4, #classes=7
+	env0: art_painting (#2048)
+	env1: cartoon (#2344)
+	env2: photo (#1670)
+	env3: sketch (#3929)
+
+[37m[36mINFO[0m[0m 03/12 13:21:08 | n_steps = 3000
+[37m[36mINFO[0m[0m 03/12 13:21:08 | checkpoint_freq = 100
+[37m[36mINFO[0m[0m 03/12 13:21:08 | n_steps is updated to 3000 => 3001 for checkpointing
+[37m[36mINFO[0m[0m 03/12 13:21:08 | Target test envs = [[0], [1], [2], [3]]
+[37m[36mINFO[0m[0m 03/12 13:21:08 | 
+[37m[36mINFO[0m[0m 03/12 13:21:08 | Testenv name escaping te_art_painting -> te_art_painting
+[37m[36mINFO[0m[0m 03/12 13:21:08 | Test envs = [0], name = te_art_painting
