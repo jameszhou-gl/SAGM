@@ -319,7 +319,10 @@ class CelebA_Blond(MultipleDomainDataset):
             transforms.ToTensor(),
             get_normalize(),
         ])
-
+        environments = [f.name for f in os.scandir(root) if f.is_dir()]
+        environments = sorted(environments)
+        self.environments = environments
+        
         img_dir = Path(root, 'celeba', 'img_align_celeba')
         self.datasets = []
         for i, env_name in enumerate(self.ENVIRONMENTS):
