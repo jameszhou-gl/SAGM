@@ -321,7 +321,7 @@ class CelebA_Blond(MultipleDomainDataset):
         ])
         environments = [f.name for f in os.scandir(root) if f.is_dir()]
         environments = sorted(environments)
-        self.environments = environments
+        self.environments = ['tr_env1', 'tr_env2', 'te_env']
         
         img_dir = Path(root, 'celeba', 'img_align_celeba')
         self.datasets = []
