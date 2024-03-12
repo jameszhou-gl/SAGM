@@ -127,9 +127,9 @@ def main():
     # print dataset information
     logger.nofmt("Dataset:")
     logger.nofmt(f"\t[{args.dataset}] #envs={len(dataset)}, #classes={dataset.num_classes}")
-    for i, env_property in enumerate(dataset.environments):
-        logger.nofmt(f"\tenv{i}: {env_property} (#{len(dataset[i])})")
-    logger.nofmt("")
+    # for i, env_property in enumerate(dataset.environments):
+    #     logger.nofmt(f"\tenv{i}: {env_property} (#{len(dataset[i])})")
+    # logger.nofmt("")
 
     n_steps = args.steps or dataset.N_STEPS
     checkpoint_freq = args.checkpoint_freq or dataset.CHECKPOINT_FREQ
