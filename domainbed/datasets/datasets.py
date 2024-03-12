@@ -297,11 +297,11 @@ class CelebA_Blond(MultipleDomainDataset):
     ENVIRONMENTS = ['tr_env1', 'tr_env2', 'te_env']
     TARGET_ATTRIBUTE_ID = 9
 
-    def __init__(self, root, test_envs, hparams):
+    def __init__(self, root):
         super().__init__()
-        if 'data_augmentation_scheme' in hparams:
-            raise NotImplementedError(
-                'CelebA_Blond has its own data augmentation scheme')
+        # if 'data_augmentation_scheme' in hparams:
+        #     raise NotImplementedError(
+        #         'CelebA_Blond has its own data augmentation scheme')
 
         transform = transforms.Compose([
             # crop the face at the center, no stretching
@@ -323,10 +323,10 @@ class CelebA_Blond(MultipleDomainDataset):
         img_dir = Path(root, 'celeba', 'img_align_celeba')
         self.datasets = []
         for i, env_name in enumerate(self.ENVIRONMENTS):
-            if hparams['data_augmentation'] and (i not in test_envs):
-                env_transform = augment_transform
-            else:
-                env_transform = transform
+            # if hparams['data_augmentation'] and (i not in test_envs):
+            #     env_transform = augment_transform
+            # else:
+            env_transform = transform
             split_csv = Path(root, 'celeba', 'blond_split', f'{env_name}.csv')
             dataset = CelebA_Environment(self.TARGET_ATTRIBUTE_ID, split_csv, img_dir,
                                          env_transform)
