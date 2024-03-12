@@ -321,7 +321,7 @@ class CelebA_Blond(MultipleDomainDataset):
         ])
         environments = [f.name for f in os.scandir(root) if f.is_dir()]
         environments = sorted(environments)
-        self.environments = ['tr_env1', 'tr_env2', 'te_env']
+        self.environments = environments
         
         img_dir = Path(root, 'celeba', 'img_align_celeba')
         self.datasets = []
@@ -332,7 +332,7 @@ class CelebA_Blond(MultipleDomainDataset):
             env_transform = transform
             split_csv = Path(root, 'celeba', 'blond_split', f'{env_name}.csv')
             dataset = CelebA_Environment(self.TARGET_ATTRIBUTE_ID, split_csv, img_dir,
-                                         env_transform)
+                                         None)
             self.datasets.append(dataset)
 
         self.input_shape = (3, 224, 224,)
