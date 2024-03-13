@@ -1,0 +1,69 @@
+[37m[36mINFO[0m[0m 03/13 10:41:16 | Command :: train_all.py CB0 --dataset CelebA_Blond --data_dir /home/guanglinzhou/scratch/domainbed/dataset --deterministic --trial_seed 0 --algorithm SAGM_DG --alpha 0.001 --lr 1e-5 --weight_decay 1e-4 --resnet_dropout 0.5 --swad False --steps 3000
+Environment:
+	Python: 3.11.5
+	PyTorch: 2.0.1+cu117
+	Torchvision: 0.15.2+cu117
+	CUDA: 11.7
+	CUDNN: 8500
+	NumPy: 1.26.2
+	PIL: 10.1.0
+Args:
+	algorithm: SAGM_DG
+	checkpoint_freq: None
+	configs: []
+	data_dir: /home/guanglinzhou/scratch/domainbed/dataset
+	dataset: CelebA_Blond
+	debug: False
+	deterministic: True
+	evalmode: fast
+	holdout_fraction: 0.2
+	model_save: None
+	name: CB0
+	out_dir: train_output/CelebA_Blond/240313_10-41-16_CB0
+	out_root: train_output/CelebA_Blond
+	prebuild_loader: False
+	seed: 0
+	show: False
+	steps: 3000
+	tb_freq: 10
+	test_envs: None
+	trial_seed: 0
+	unique_name: 240313_10-41-16_CB0
+	work_dir: .
+HParams:
+	data_augmentation: True
+	val_augment: False
+	resnet18: False
+	[36mresnet_dropout: 0.5
+	[0mclass_balanced: False
+	optimizer: adam
+	freeze_bn: True
+	pretrained: True
+	[36mlr: 1e-05
+	[0mbatch_size: 32
+	[36mweight_decay: 0.0001
+	[0mrho: 0.05
+	[36malpha: 0.001
+	[0m[36mswad: False
+	[0mswad_kwargs: 
+	  n_converge: 3
+	  n_tolerance: 6
+	  tolerance_ratio: 0.3
+	test_batchsize: 128
+	indomain_test: False
+Dataset:
+	[CelebA_Blond] #envs=3, #classes=2
+	env0: tr_env1 (#24266)
+	env1: tr_env2 (#24266)
+	env2: te_env (#1448)
+
+[37m[36mINFO[0m[0m 03/13 10:41:17 | n_steps = 3000
+[37m[36mINFO[0m[0m 03/13 10:41:17 | checkpoint_freq = 200
+[37m[36mINFO[0m[0m 03/13 10:41:17 | n_steps is updated to 3000 => 3001 for checkpointing
+[37m[36mINFO[0m[0m 03/13 10:41:17 | Target test envs = [[0], [1], [2]]
+[37m[36mINFO[0m[0m 03/13 10:41:17 | 
+[37m[36mINFO[0m[0m 03/13 10:41:17 | Testenv name escaping te_tr_env1 -> te_tr_env1
+[37m[36mINFO[0m[0m 03/13 10:41:17 | Test envs = [0], name = te_tr_env1
+[37m[36mINFO[0m[0m 03/13 10:41:17 | Batch sizes for each domain: [0, 32, 32] (total=64)
+[37m[36mINFO[0m[0m 03/13 10:41:17 | steps-per-epoch for each domain: 606.66, 36.22 -> min = 36.22
+[37m[36mINFO[0m[0m 03/13 10:41:21 | # of params = 85800194

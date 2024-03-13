@@ -1,0 +1,58 @@
+[37m[36mINFO[0m[0m 03/13 10:24:23 | Command :: train_all.py CB0 --dataset CelebA_Blond --data_dir /home/guanglinzhou/scratch/domainbed/dataset --deterministic --trial_seed 0 --algorithm SAGM_DG --alpha 0.001 --lr 1e-5 --weight_decay 1e-4 --resnet_dropout 0.5 --swad False --steps 3000
+Environment:
+	Python: 3.11.5
+	PyTorch: 2.0.1+cu117
+	Torchvision: 0.15.2+cu117
+	CUDA: 11.7
+	CUDNN: 8500
+	NumPy: 1.26.2
+	PIL: 10.1.0
+Args:
+	algorithm: SAGM_DG
+	checkpoint_freq: None
+	configs: []
+	data_dir: /home/guanglinzhou/scratch/domainbed/dataset
+	dataset: CelebA_Blond
+	debug: False
+	deterministic: True
+	evalmode: fast
+	holdout_fraction: 0.2
+	model_save: None
+	name: CB0
+	out_dir: train_output/CelebA_Blond/240313_10-24-23_CB0
+	out_root: train_output/CelebA_Blond
+	prebuild_loader: False
+	seed: 0
+	show: False
+	steps: 3000
+	tb_freq: 10
+	test_envs: None
+	trial_seed: 0
+	unique_name: 240313_10-24-23_CB0
+	work_dir: .
+HParams:
+	data_augmentation: True
+	val_augment: False
+	resnet18: False
+	[36mresnet_dropout: 0.5
+	[0mclass_balanced: False
+	optimizer: adam
+	freeze_bn: True
+	pretrained: True
+	[36mlr: 1e-05
+	[0mbatch_size: 32
+	[36mweight_decay: 0.0001
+	[0mrho: 0.05
+	[36malpha: 0.001
+	[0m[36mswad: False
+	[0mswad_kwargs: 
+	  n_converge: 3
+	  n_tolerance: 6
+	  tolerance_ratio: 0.3
+	test_batchsize: 128
+	indomain_test: False
+Dataset:
+	[CelebA_Blond] #envs=3, #classes=2
+	env0: MNIST (#24266)
+	env1: PACS (#24266)
+	env2: VLCS (#1448)
